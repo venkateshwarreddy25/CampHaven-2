@@ -24,7 +24,7 @@ const helmet=require('helmet')
 const app = express();
 
 
-const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/routers';
+const uri = process.env.MONGODB_URI_ || 'mongodb://localhost:27017/routers';
 
 mongoose.connect(uri)
 .then(() => {
