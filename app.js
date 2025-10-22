@@ -71,6 +71,8 @@ app.use((req, res, next) => {
     next();
 });
 
+
+
 app.use('/', UserRouters);
 app.use('/campgrounds', campgroundsRouters);
 app.use('/campgrounds/:id/reviews', reviewsRouters);
@@ -80,10 +82,15 @@ app.get('/fakeuser', async (req, res) => {
     const newUser = await User.register(user, 'reddy');
     res.send(newUser);
 });
+app.get('/', (req, res) => {
+    res.redirect('/campgrounds');
+});
 
 app.all('*', (req, res, next) => {
-    next(new ExpressError('Page Not Found', 404))
-})
+    next(new ExpressError('Page Not Found', 404));
+});
+
+
 
 
 app.use((err, req, res, next) => {
