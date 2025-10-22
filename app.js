@@ -21,14 +21,21 @@ const UserRouters = require('./routes/users');
 const campgroundsRouters = require('./routes/campgrounds');
 const reviewsRouters = require('./routes/reviews');
 const helmet=require('helmet')
-mongoose.connect('mongodb://localhost:27017/routers');
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", () => {
-    console.log(" Database connected");
+const app = express();
+
+
+const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/routers';
+
+mongoose.connect(uri)
+.then(() => {
+    console.log("Database connected");
+})
+.catch(err => {
+    console.error("Database connection error:");
+    console.error(err);
 });
 
-const app = express();
+
 
 app.engine('ejs', require('ejs').renderFile, { async: true });
 app.engine('ejs', ejsMate);
